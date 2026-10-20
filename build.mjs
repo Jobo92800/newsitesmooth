@@ -1,7 +1,13 @@
 // Génère toutes les pages HTML du site à partir des données ci-dessous.
 // Usage : node build.mjs   (aucune dépendance)
 
-import { writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { writeFileSync, readdirSync, existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+
+// Numéro de version d'un fichier (change dès que son contenu change) : force les navigateurs à recharger
+const version = f => createHash('md5').update(readFileSync(f)).digest('hex').slice(0, 8);
+const V_CSS = version('assets/css/style.css');
+const V_JS = version('assets/js/main.js');
 
 const SITE = 'https://www.smoothbynoone.com';
 const TEL = '06 75 30 33 76';
@@ -254,7 +260,7 @@ function page({ id, titre, description, image = 'assets/img/photos/feu-lumieres.
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js")</script>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=${V_CSS}">
   <script type="application/ld+json">${JSON.stringify(jsonld ? [ld, jsonld] : ld)}</script>
 </head>
 <body>
@@ -328,7 +334,7 @@ ${contenu}
       </div>
     </div>
   </footer>
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js?v=${V_JS}" defer></script>
 </body>
 </html>
 `;
