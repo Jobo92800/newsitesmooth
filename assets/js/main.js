@@ -37,13 +37,25 @@ if (video) {
   maj();
 }
 
-// Vidéo du bas de page : chargée et lue seulement quand elle est à l'écran
+// Autres vidéos de fond (bas de page, Performing) : chargées et lues seulement quand elles sont à l'écran
 const obsVideo = new IntersectionObserver(entrees => entrees.forEach(e => {
   const v = e.target;
   if (e.isIntersecting) { charger(v); if (sansAnimation) v.currentTime = 1; else v.play().catch(() => {}); }
   else v.pause();
 }), { rootMargin: '200px 0px' });
-document.querySelectorAll('.appel-video').forEach(v => obsVideo.observe(v));
+document.querySelectorAll('.appel-video, .fond-video').forEach(v => obsVideo.observe(v));
+
+// Teasers des spectacles : chargés seulement au clic, avec le son
+document.querySelectorAll('.teaser').forEach(t => {
+  const v = t.querySelector('video');
+  t.querySelector('.teaser-lancer').addEventListener('click', () => {
+    if (!v.src) v.src = v.getAttribute('data-src-' + (largeur > 800 ? 720 : 480));
+    t.classList.add('lance');
+    v.play();
+    v.focus();
+  });
+  v.addEventListener('play', () => t.classList.add('lance'));
+});
 
 // Apparitions au défilement
 const obs = new IntersectionObserver(entrees => {
@@ -69,7 +81,7 @@ vote?.querySelectorAll('button').forEach(b => b.addEventListener('click', () => 
 }));
 
 // Visionneuse des galeries
-const vignettes = [...document.querySelectorAll('.galerie button')];
+const vignettes = [...document.querySelectorAll('.infos-visuel, .galerie button')];
 if (vignettes.length) {
   const v = document.createElement('div');
   v.className = 'visionneuse';

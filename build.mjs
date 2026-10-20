@@ -17,7 +17,7 @@ const RESEAUX = {
 
 const SPECTACLES = [
   {
-    id: 'suit-and-tie', page: 'suitandtie', nom: 'Suit & Tie', nomLong: 'Suit & Tie',
+    id: 'suit-and-tie', teaser: true, page: 'suitandtie', nom: 'Suit & Tie', nomLong: 'Suit & Tie',
     affiche: 'suit-and-tie', fond: 'trio-masques',
     accroche: 'Et si le public décidait vraiment de la fin ?',
     resume: 'Le seul spectacle interactif à choix multiples : votes en direct, chemins alternatifs, plusieurs fins possibles. Ici, le spectacle change. À chaque fois.',
@@ -41,7 +41,7 @@ const SPECTACLES = [
     ],
   },
   {
-    id: 'underground', page: 'underground', nom: 'Underground', nomLong: 'Underground : le Monde Caché',
+    id: 'underground', teaser: true, page: 'underground', nom: 'Underground', nomLong: 'Underground : le Monde Caché',
     affiche: 'underground', fond: 'pyro',
     accroche: 'Un film de danse à l’américaine, joué en live.',
     resume: 'Danse classique, hip-hop, chant, effets visuels et pyrotechnie : suivez Jade dans un monde secret où chaque pas révèle un mystère.',
@@ -63,7 +63,7 @@ const SPECTACLES = [
     ],
   },
   {
-    id: 'pop-corn', page: 'pop-corn', nom: 'Pop-Corn Show', nomLong: 'Pop-Corn Show',
+    id: 'pop-corn', teaser: true, page: 'pop-corn', nom: 'Pop-Corn Show', nomLong: 'Pop-Corn Show',
     affiche: 'pop-corn', fond: 'danseuses-jaunes',
     accroche: 'Le cinéma se regarde… Pop-Corn Show se vit.',
     resume: 'Elena et Silas sont propulsés au cœur du cinéma : chevaliers, ninjas, dinosaures… Danse, théâtre, humour, vidéo et interactions avec le public.',
@@ -85,7 +85,7 @@ const SPECTACLES = [
     ],
   },
   {
-    id: 'halloween', page: 'halloween', nom: 'Sweet Dreams', nomLong: 'Halloween : Sweet Dreams',
+    id: 'halloween', teaser: true, page: 'halloween', nom: 'Sweet Dreams', nomLong: 'Halloween : Sweet Dreams',
     affiche: 'halloween', fond: 'groupe-rouge', saison: 'Halloween',
     accroche: 'Entrez dans le rêve… si vous osez.',
     resume: 'Terrence réveille sans le vouloir sorcières, vampires et loups-garous. Frissons maîtrisés, magie et pyrotechnie, dès 6 ans.',
@@ -164,6 +164,15 @@ const NAV = [
   ['index', 'Accueil'], ['spectacles', 'Spectacles'], ['performing', 'Performing'],
   ['nosartistes', 'Les artistes'], ['galerie', 'Galerie'], ['contact', 'Contact'],
 ];
+
+// Fiches « Infos clés » reprises de l'ancien site (largeur, hauteur, texte alternatif)
+const INFOS_CLES = {
+  'suit-and-tie': [714, 1327, 'Infos clés Suit & Tie : spectacle interactif tout public, environ 90 minutes, équipe de 6 à 10 artistes, diffusion toute l’année, danse, chant live et comédie, spectacle intégral ou dîner-spectacle, vote du public.'],
+  underground: [623, 931, 'Infos clés Underground : spectacle familial accessible à tous, environ 80 minutes, spectacle scénique immersif, technique adaptable selon les lieux, diffusion toute l’année.'],
+  'pop-corn': [1211, 681, 'Infos clés Pop-Corn Show : tout public, 80 minutes, spectacle immersif mêlant danse, théâtre et univers du cinéma, équipe de 4 à 8 artistes, espace scénique adaptable, diffusion toute l’année.'],
+  halloween: [705, 723, 'Infos clés Halloween : Sweet Dreams : spectacle familial dès 6 ans, environ 80 minutes, mise en scène immersive, technique adaptable, joué principalement pendant Halloween.'],
+  noel: [559, 839, 'Infos clés Noël : la Nouvelle Équipe : spectacle familial tout public, 45 ou 80 minutes, mise en scène immersive, technique adaptable, pour la période des fêtes.'],
+};
 
 // ---------- Utilitaires ----------
 
@@ -566,13 +575,33 @@ for (const s of SPECTACLES) {
           </dl>
           <div class="fiche-actions">
             ${btn(`contact.html?spectacle=${s.id}`, 'Programmer ce spectacle')}
-            <a class="btn btn-ligne" href="#histoire">L’histoire</a>
+            <a class="btn btn-ligne" href="${s.teaser ? '#t-teaser' : '#histoire'}">${s.teaser ? 'Voir le teaser' : 'L’histoire'}</a>
           </div>
         </div>
         <div class="fiche-affiche apparait" data-delai="1"><img src="assets/img/affiches/${s.affiche}.jpg" alt="Affiche ${s.nomLong}" width="1000" height="1500" fetchpriority="high"></div>
       </div>
     </section>
 
+${s.teaser ? `
+    <section class="section section-serree" aria-labelledby="t-teaser">
+      <div class="wrap">
+        <div class="entete-section">
+          <div>
+            <p class="surtitre">Le teaser</p>
+            <h2 class="titre titre-m" id="t-teaser">${s.nomLong} <span class="serif">en vidéo</span></h2>
+          </div>
+        </div>
+        <div class="teaser apparait">
+          <video class="teaser-video" controls playsinline preload="none" poster="assets/img/photos/${s.fond}.jpg"
+            data-src-480="assets/video/teaser-${s.id}-480.mp4" data-src-720="assets/video/teaser-${s.id}-720.mp4" aria-label="Teaser du spectacle ${s.nomLong}"></video>
+          <button class="teaser-lancer" type="button" aria-label="Lancer le teaser de ${s.nomLong}">
+            <span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg></span>
+            Voir le teaser
+          </button>
+        </div>
+      </div>
+    </section>
+` : ''}
     <section class="section" id="histoire" aria-labelledby="t-histoire">
       <div class="wrap histoire">
         <div class="histoire-cle apparait">
@@ -594,9 +623,18 @@ for (const s of SPECTACLES) {
             <h2 class="titre titre-m" id="t-contenu">Le contenu de <span class="serif">votre spectacle</span></h2>
           </div>
         </div>
-        <ul class="contenu-liste">
+        ${(() => {
+          const liste = `<ul class="contenu-liste">
           ${s.contenu.map(([t, d]) => `<li class="apparait"><div><b>${t}</b><span>${d}</span></div></li>`).join('\n          ')}
-        </ul>
+        </ul>`;
+          const fiche = INFOS_CLES[s.affiche];
+          if (!fiche) return liste;
+          const [l, h, alt] = fiche;
+          return `<div class="contenu-grille ${l > h ? 'paysage' : 'portrait'}">
+          <button class="infos-visuel apparait" type="button" aria-label="Agrandir la fiche infos clés"><img src="assets/img/infos/${s.affiche}.jpg" alt="${alt}" width="${l}" height="${h}" loading="lazy"></button>
+          ${liste}
+        </div>`;
+        })()}
       </div>
     </section>
 ${photos.length ? `
@@ -636,7 +674,8 @@ pages.performing = page({
   image: 'assets/img/affiches/performing.jpg',
   contenu: `
     <section class="page-hero">
-      <div class="page-hero-fond" aria-hidden="true"><img src="assets/img/photos/feu-chateau.jpg" alt=""></div>
+      <div class="page-hero-fond" aria-hidden="true"><video class="fond-video" muted loop playsinline preload="none" poster="assets/img/photos/feu-chateau.jpg"
+        data-src-480="assets/video/performing-480.mp4" data-src-720="assets/video/performing-720.mp4" data-src-1080="assets/video/performing-1080.mp4"></video></div>
       <div class="wrap">
         <p class="surtitre">Performing</p>
         <h1 class="titre titre-xl">Sublimez <span class="serif">votre événement.</span></h1>

@@ -70,10 +70,30 @@
           </dl>
           <div class="fiche-actions">
             <a class="btn " href="contact.html?spectacle=underground">Programmer ce spectacle <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-ligne" href="#histoire">L’histoire</a>
+            <a class="btn btn-ligne" href="#t-teaser">Voir le teaser</a>
           </div>
         </div>
         <div class="fiche-affiche apparait" data-delai="1"><img src="assets/img/affiches/underground.jpg" alt="Affiche Underground : le Monde Caché" width="1000" height="1500" fetchpriority="high"></div>
+      </div>
+    </section>
+
+
+    <section class="section section-serree" aria-labelledby="t-teaser">
+      <div class="wrap">
+        <div class="entete-section">
+          <div>
+            <p class="surtitre">Le teaser</p>
+            <h2 class="titre titre-m" id="t-teaser">Underground : le Monde Caché <span class="serif">en vidéo</span></h2>
+          </div>
+        </div>
+        <div class="teaser apparait">
+          <video class="teaser-video" controls playsinline preload="none" poster="assets/img/photos/pyro.jpg"
+            data-src-480="assets/video/teaser-underground-480.mp4" data-src-720="assets/video/teaser-underground-720.mp4" aria-label="Teaser du spectacle Underground : le Monde Caché"></video>
+          <button class="teaser-lancer" type="button" aria-label="Lancer le teaser de Underground : le Monde Caché">
+            <span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg></span>
+            Voir le teaser
+          </button>
+        </div>
       </div>
     </section>
 
@@ -100,7 +120,9 @@
             <h2 class="titre titre-m" id="t-contenu">Le contenu de <span class="serif">votre spectacle</span></h2>
           </div>
         </div>
-        <ul class="contenu-liste">
+        <div class="contenu-grille portrait">
+          <button class="infos-visuel apparait" type="button" aria-label="Agrandir la fiche infos clés"><img src="assets/img/infos/underground.jpg" alt="Infos clés Underground : spectacle familial accessible à tous, environ 80 minutes, spectacle scénique immersif, technique adaptable selon les lieux, diffusion toute l’année." width="623" height="931" loading="lazy"></button>
+          <ul class="contenu-liste">
           <li class="apparait"><div><b>Danse classique & hip-hop</b><span>Deux univers chorégraphiques opposés qui se rencontrent et évoluent au fil de l’histoire.</span></div></li>
           <li class="apparait"><div><b>Théâtre & personnages</b><span>Une véritable intrigue portée par des personnages, des dialogues et une mise en scène rythmée.</span></div></li>
           <li class="apparait"><div><b>Chant & musique</b><span>Des séquences chantées et musicales intégrées à l’histoire.</span></div></li>
@@ -108,6 +130,7 @@
           <li class="apparait"><div><b>Univers visuel immersif</b><span>Costumes, lumières et scénographie plongent le public au cœur du Monde Caché.</span></div></li>
           <li class="apparait"><div><b>Pyrotechnie</b><span>Des effets qui viennent enrichir l’aventure (selon réglementation).</span></div></li>
         </ul>
+        </div>
       </div>
     </section>
 

@@ -428,7 +428,8 @@ button { font: inherit; color: inherit; }
 .page-hero .titre-l { max-width: 14ch; }
 .page-hero .chapo { margin-top: 26px; }
 .page-hero-fond { position: absolute; inset: 0; z-index: -1; }
-.page-hero-fond img { width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+.page-hero-fond img, .page-hero-fond video { width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+.page-hero-fond video { opacity: .55; }
 .page-hero-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,11,10,.4), var(--noir)); }
 
 /* Fiche spectacle */
@@ -476,6 +477,44 @@ button { font: inherit; color: inherit; }
 .autres { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .autres .affiche h3 { font-size: 24px; }
 @media (max-width: 980px) { .autres { grid-template-columns: repeat(2, 1fr); } }
+
+/* Fiche infos clés + contenu */
+.contenu-grille { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+.contenu-grille .contenu-liste { grid-template-columns: 1fr; }
+.contenu-grille.paysage { grid-template-columns: 1fr; }
+.contenu-grille.paysage .contenu-liste { grid-template-columns: repeat(2, 1fr); }
+.infos-visuel {
+  display: block; width: 100%; padding: 0; border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden;
+  background: var(--noir-2); cursor: zoom-in; position: sticky; top: 100px;
+}
+.contenu-grille.paysage .infos-visuel { position: static; }
+.infos-visuel img { width: 100%; transition: transform 1s var(--ease); }
+.infos-visuel:hover img { transform: scale(1.02); }
+@media (max-width: 860px) {
+  .contenu-grille { grid-template-columns: 1fr; }
+  .infos-visuel { position: static; max-width: 520px; }
+  .contenu-grille.paysage .infos-visuel { max-width: none; }
+}
+@media (max-width: 760px) { .contenu-grille.paysage .contenu-liste { grid-template-columns: 1fr; } }
+
+/* Teaser vidéo */
+.teaser { position: relative; aspect-ratio: 16 / 9; border-radius: calc(var(--rayon) * 1.4); overflow: hidden; background: var(--noir-2); border: 1px solid var(--trait); }
+.teaser video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.teaser.lance video { object-fit: contain; }
+.teaser-lancer {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  border: 0; cursor: pointer; font-weight: 700; font-size: 16px; letter-spacing: .04em;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(12,11,10,.25), rgba(12,11,10,.7));
+}
+.teaser-lancer span {
+  width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--or); color: var(--noir); box-shadow: 0 0 0 10px rgba(233,180,76,.2);
+  transition: transform .4s var(--ease), box-shadow .4s;
+}
+.teaser-lancer span svg { width: 34px; height: 34px; margin-left: 4px; }
+.teaser-lancer:hover span { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(233,180,76,.18); }
+.teaser.lance .teaser-lancer { display: none; }
+@media (max-width: 560px) { .teaser-lancer span { width: 72px; height: 72px; } .teaser { border-radius: var(--rayon); } }
 
 /* Liste spectacles */
 .rangee { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: center; padding: clamp(48px, 6vw, 88px) 0; border-top: 1px solid var(--trait); }

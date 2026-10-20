@@ -70,10 +70,30 @@
           </dl>
           <div class="fiche-actions">
             <a class="btn " href="contact.html?spectacle=halloween">Programmer ce spectacle <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-ligne" href="#histoire">L’histoire</a>
+            <a class="btn btn-ligne" href="#t-teaser">Voir le teaser</a>
           </div>
         </div>
         <div class="fiche-affiche apparait" data-delai="1"><img src="assets/img/affiches/halloween.jpg" alt="Affiche Halloween : Sweet Dreams" width="1000" height="1500" fetchpriority="high"></div>
+      </div>
+    </section>
+
+
+    <section class="section section-serree" aria-labelledby="t-teaser">
+      <div class="wrap">
+        <div class="entete-section">
+          <div>
+            <p class="surtitre">Le teaser</p>
+            <h2 class="titre titre-m" id="t-teaser">Halloween : Sweet Dreams <span class="serif">en vidéo</span></h2>
+          </div>
+        </div>
+        <div class="teaser apparait">
+          <video class="teaser-video" controls playsinline preload="none" poster="assets/img/photos/groupe-rouge.jpg"
+            data-src-480="assets/video/teaser-halloween-480.mp4" data-src-720="assets/video/teaser-halloween-720.mp4" aria-label="Teaser du spectacle Halloween : Sweet Dreams"></video>
+          <button class="teaser-lancer" type="button" aria-label="Lancer le teaser de Halloween : Sweet Dreams">
+            <span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg></span>
+            Voir le teaser
+          </button>
+        </div>
       </div>
     </section>
 
@@ -100,7 +120,9 @@
             <h2 class="titre titre-m" id="t-contenu">Le contenu de <span class="serif">votre spectacle</span></h2>
           </div>
         </div>
-        <ul class="contenu-liste">
+        <div class="contenu-grille portrait">
+          <button class="infos-visuel apparait" type="button" aria-label="Agrandir la fiche infos clés"><img src="assets/img/infos/halloween.jpg" alt="Infos clés Halloween : Sweet Dreams : spectacle familial dès 6 ans, environ 80 minutes, mise en scène immersive, technique adaptable, joué principalement pendant Halloween." width="705" height="723" loading="lazy"></button>
+          <ul class="contenu-liste">
           <li class="apparait"><div><b>Une mise en scène cinématographique</b><span>Qui plonge le public dans un univers entre rêve et cauchemar.</span></div></li>
           <li class="apparait"><div><b>Une histoire palpitante</b><span>Accessible dès 6 ans, mêlant frissons, humour et magie.</span></div></li>
           <li class="apparait"><div><b>Une grande diversité de danses</b><span>Au service de l’énergie et de la narration.</span></div></li>
@@ -108,6 +130,7 @@
           <li class="apparait"><div><b>Effets visuels et pyrotechnie</b><span>Selon réglementation et configuration.</span></div></li>
           <li class="apparait"><div><b>Des costumes spectaculaires</b><span>Qui renforcent l’atmosphère mystérieuse du spectacle.</span></div></li>
         </ul>
+        </div>
       </div>
     </section>
 
