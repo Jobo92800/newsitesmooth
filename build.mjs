@@ -64,7 +64,7 @@ const SPECTACLES = [
   },
   {
     id: 'pop-corn', teaser: true, page: 'pop-corn', nom: 'Pop-Corn Show', nomLong: 'Pop-Corn Show',
-    affiche: 'pop-corn', fond: 'danseuses-jaunes',
+    affiche: 'pop-corn', fond: 'danseuses-jaunes', appel: 'pop-corn-scene',
     accroche: 'Le cinéma se regarde… Pop-Corn Show se vit.',
     resume: 'Elena et Silas sont propulsés au cœur du cinéma : chevaliers, ninjas, dinosaures… Danse, théâtre, humour, vidéo et interactions avec le public.',
     tags: ['Cinéma', '80 min', 'Famille'],
@@ -204,7 +204,21 @@ const carteSpectacle = (s, i = 0, avecResume = true) => `
 // ---------- Gabarit commun ----------
 
 function page({ id, titre, description, image = 'assets/img/photos/feu-lumieres.jpg', contenu, jsonld }) {
-  const navLiens = NAV.map(([p, l]) => `<a href="${url(p)}"${p === id || (id !== 'index' && SPECTACLES.some(s => s.page === id) && p === 'spectacles') ? ' aria-current="page"' : ''}>${l}</a>`).join('\n        ');
+  const actif = p => p === id || (p === 'spectacles' && SPECTACLES.some(s => s.page === id));
+  const lien = ([p, l]) => `<a href="${url(p)}"${actif(p) ? ' aria-current="page"' : ''}>${l}</a>`;
+  // Menu principal : « Spectacles » ouvre un mini-menu avec chaque spectacle
+  const navLiens = NAV.map(([p, l]) => p !== 'spectacles' ? lien([p, l]) : `<div class="nav-groupe">
+          ${lien([p, l])}
+          <div class="sous-menu">
+            <div class="sous-menu-liste">
+              ${SPECTACLES.map(s => `<a class="sous-menu-lien" href="${url(s.page)}"${s.page === id ? ' aria-current="page"' : ''}><img src="assets/img/affiches/${s.affiche}.jpg" alt="" width="1000" height="1500" loading="lazy"><span><b>${s.nomLong}</b><small>${s.tags.slice(0, 2).join(' · ')}</small></span></a>`).join('\n              ')}
+            </div>
+            <div class="sous-menu-pied"><a href="spectacles.html">Tous les spectacles</a><a href="performing.html">Performing sur mesure</a></div>
+          </div>
+        </div>`).join('\n        ');
+  // Menu mobile : les spectacles apparaissent en retrait sous « Spectacles »
+  const navMobile = NAV.map(([p, l]) => p !== 'spectacles' ? lien([p, l]) : lien([p, l]) + `
+      <div class="menu-mobile-sous">${SPECTACLES.map(s => `<a href="${url(s.page)}"${s.page === id ? ' aria-current="page"' : ''}>${s.nomLong}</a>`).join('')}</div>`).join('\n      ');
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'PerformingGroup',
@@ -257,7 +271,7 @@ function page({ id, titre, description, image = 'assets/img/photos/feu-lumieres.
   </header>
   <div class="menu-mobile" id="menu-mobile">
     <nav aria-label="Navigation mobile">
-      ${navLiens}
+      ${navMobile}
     </nav>
     <div>
       ${btn('contact.html', 'Demander un devis')}
@@ -630,8 +644,9 @@ ${s.teaser ? `
           const fiche = INFOS_CLES[s.affiche];
           if (!fiche) return liste;
           const [l, h, alt] = fiche;
-          return `<div class="contenu-grille ${l > h ? 'paysage' : 'portrait'}">
-          <button class="infos-visuel apparait" type="button" aria-label="Agrandir la fiche infos clés"><img src="assets/img/infos/${s.affiche}.jpg" alt="${alt}" width="${l}" height="${h}" loading="lazy"></button>
+          const forme = l / h > 1.25 ? 'paysage' : l / h > .85 ? 'carre' : 'portrait';
+          return `<div class="contenu-grille ${forme}">
+          <button class="infos-visuel apparait" type="button" aria-label="Agrandir la fiche infos clés"><span class="infos-flou" style="background-image: url('assets/img/infos/${s.affiche}.jpg')" aria-hidden="true"></span><img src="assets/img/infos/${s.affiche}.jpg" alt="${alt}" width="${l}" height="${h}" loading="lazy"></button>
           ${liste}
         </div>`;
         })()}
@@ -663,7 +678,7 @@ ${photos.length ? `
         </div>
       </div>
     </section>
-${appelFinal(`Programmez <span class="serif">${s.nomLong}</span>`, s.fond)}`,
+${appelFinal(`Programmez <span class="serif">${s.nomLong}</span>`, s.appel || s.fond)}`,
   });
 }
 
