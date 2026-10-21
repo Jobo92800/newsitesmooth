@@ -92,7 +92,7 @@ const SPECTACLES = [
   },
   {
     id: 'halloween', teaser: true, page: 'halloween', nom: 'Sweet Dreams', nomLong: 'Halloween : Sweet Dreams',
-    affiche: 'halloween', fond: 'groupe-rouge', saison: 'Halloween',
+    affiche: 'halloween', fond: 'groupe-rouge', cadrage: '50% 20%', saison: 'Halloween',
     accroche: 'Entrez dans le rêve… si vous osez.',
     resume: 'Terrence réveille sans le vouloir sorcières, vampires et loups-garous. Frissons maîtrisés, magie et pyrotechnie, dès 6 ans.',
     tags: ['Halloween', '80 min', 'Dès 6 ans'],
@@ -345,10 +345,11 @@ ${contenu}
 `;
 }
 
-const appelFinal = (titre = 'Votre prochain événement mérite un <span class="serif">vrai</span> spectacle.', image = null) => `
+// cadrage : partie de la photo à garder visible (ex. '50% 20%' pour remonter vers les visages)
+const appelFinal = (titre = 'Votre prochain événement mérite un <span class="serif">vrai</span> spectacle.', image = null, cadrage = '') => `
     <section class="appel">
       ${image
-        ? `<img src="assets/img/photos/${image}.jpg" alt="" loading="lazy">`
+        ? `<img src="assets/img/photos/${image}.jpg" alt="" loading="lazy"${cadrage ? ` style="object-position: ${cadrage}"` : ''}>`
         : `<video class="appel-video" muted loop playsinline preload="none" aria-hidden="true"
           data-src-480="assets/video/appel-480.mp4" data-src-720="assets/video/appel-720.mp4" data-src-1080="assets/video/appel-1080.mp4"></video>`}
       <div class="wrap apparait">
@@ -689,7 +690,7 @@ ${photos.length ? `
         </div>
       </div>
     </section>
-${appelFinal(`Programmez <span class="serif">${s.nomLong}</span>`, s.appel || s.fond)}`,
+${appelFinal(`Programmez <span class="serif">${s.nomLong}</span>`, s.appel || s.fond, s.cadrage)}`,
   });
 }
 
