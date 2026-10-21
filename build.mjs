@@ -156,6 +156,11 @@ const ARTISTES = [
   ['maude', 'Maude', 'Danseuse'],
   ['morgan', 'Morgan', 'Danseur'],
   ['elektra', 'Elektra', 'Danseuse'],
+  ['eilisha', 'Eilisha', 'Chanteuse'],
+  ['eliane', 'Éliane', 'Danseuse'],
+  ['fanny', 'Fanny', 'Danseuse'],
+  ['harmony', 'Harmony', 'Danseuse'],
+  ['manuela', 'Manuela', 'Danseuse'],
 ];
 
 const CLIENTS = [
